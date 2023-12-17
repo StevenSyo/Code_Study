@@ -170,12 +170,12 @@ print("サンプル取得成功。サンプル数:{}。\n{}".format(num,samples)
 ## continue文 不要な回のループをスキップする
 ages = [20,25,75,'秘密',64,45,15,34,35,'無回答',22,27,61,55,59]
 samples = list()
-for date in ages:
+for data in ages:
     if not isinstance(data,int):  # isinstance(データ,データ型)
         continue
     if data < 22 or data > 65:
         continue
-    samples.append(date)
+    samples.append(data)
 print(samples)
 
 
@@ -203,3 +203,8 @@ for num in data_list:
     if num == 2:
         continue
     print(num)
+
+## 改行しないこと
+print("hello",end="")
+print(end)
+# helloPython
