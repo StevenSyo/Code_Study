@@ -206,5 +206,4 @@ for num in data_list:
 
 ## 改行しないこと
 print("hello",end="")
-print(end)
 # helloPython
