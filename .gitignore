@@ -1,0 +1,21 @@
+# Visual Studio 相关
+.vs/
+*.suo
+*.user
+*.cache
+*.VC.db
+*.sqlite
+
+# Visual Studio Code 设置
+.vscode/
+
+# Python 编译缓存
+__pycache__/
+*.pyc
+
+# Node.js 模块
+node_modules/
+
+# 日志和临时文件
+*.log
+*.tmp
