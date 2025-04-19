@@ -98,7 +98,7 @@ def 関数名(引数1,引数2,...):
 # どんどん代入して計算します。
 def puls(x,y):                # puls関数を定義
     answer = x + y
-    return answer             # puls関数の計算結果を戻し　puls(x,y
+    return answer             # puls関数の計算結果を戻し　puls(x,y)
 
 answer = puls(100,50)            
 # 引数を代入して、puls(100,50)計算して、「puls(100,50)」が「150」になる。そして、「150」はanswerに代入
@@ -110,3 +110,5 @@ def plus_and_minus(a,b):
     return a + b , a - b
 
 next,prev = plus_and_minus(2023,1)
+print("この二つの数で足し算の答えは{}であり、引き算の答えは{}です。".format(next,prev))
+

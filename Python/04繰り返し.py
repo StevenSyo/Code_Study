@@ -48,7 +48,6 @@ while drowsiness == False:
         drowsiness = True 
     else:
         count += 1
-
 print('おやすみなさい。')
 
 # while文 繰り返しによるリストの作成
