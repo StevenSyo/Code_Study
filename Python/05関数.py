@@ -112,3 +112,4 @@ def plus_and_minus(a,b):
 next,prev = plus_and_minus(2023,1)
 print("この二つの数で足し算の答えは{}であり、引き算の答えは{}です。".format(next,prev))
 
+# test
