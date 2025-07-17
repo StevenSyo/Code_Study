@@ -1,0 +1,53 @@
+# AWSTemplateFormatVersion: 2010-09-09
+# Description: |
+  
+Parameters:
+  Keypair:
+    Type: AWS::EC2::KeyPair::KeyName
+  
+# Metadata:
+  
+# Mappings:
+  
+# Conditions:
+  
+Resources:
+  mySgBas:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: for bas
+      VpcId: !ImportValue OpVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+      - Key: Name
+        Value: qlite-dev-llc-sg-bas-cfn
+  
+  myEc2Bas: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: "ami-0d921a0e79f9f6e6e"
+      InstanceType: t2.micro
+      KeyName: 
+        Ref: Keypair
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet: 
+            - Ref: mySgBas
+          SubnetId: !ImportValue OpSubnetPub1a
+      Tags:
+      - Key: Name
+        Value: qlite-dev-llc-ec2-bas-cfn
+
+# Transform:
+  
+# Outputs:

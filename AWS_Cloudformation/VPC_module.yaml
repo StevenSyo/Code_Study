@@ -1,0 +1,258 @@
+# AWSTemplateFormatVersion: 2010-09-09
+# Description: |
+  
+# Parameters:
+  
+# Metadata:
+  
+# Mappings:
+  
+# Conditions:
+  
+Resources:
+  myVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-vpc-cfn
+
+  myIgw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-igw-cfn
+
+  myIgwAttach:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: myVPC
+      InternetGatewayId:
+        Ref: myIgw
+
+  mySubnetPub1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: 
+        Ref: myVPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-subnet-pub1a-cfn
+
+  mySubnetPri1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: 
+        Ref: myVPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-subnet-pri1a-cfn
+
+  mySubnetPub1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: 
+        Ref: myVPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: "ap-northeast-1c"
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-subnet-pub1c-cfn
+
+  mySubnetPri1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: 
+        Ref: myVPC
+      CidrBlock: 10.0.3.0/24
+      AvailabilityZone: "ap-northeast-1c"
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-subnet-pri1c-cfn
+
+  mySubnetNat1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: 
+        Ref: myVPC
+      CidrBlock: 10.0.4.0/24
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-subnet-nat1a-cfn
+
+  mySubnetNat1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: 
+        Ref: myVPC
+      CidrBlock: 10.0.5.0/24
+      AvailabilityZone: "ap-northeast-1c"
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-subnet-nat1c-cfn
+
+  myRtbPub:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: myVPC
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-rtb-pub-cfn
+
+  myRtbPri1a:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: myVPC
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-rtb-pri1a-cfn
+
+  myRtbPri1c:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: myVPC
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-rtb-pri1c-cfn
+
+  myRtbNat1a:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: myVPC
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-rtb-nat1a-cfn
+
+  myRtbNat1c:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: myVPC
+      Tags:
+      - Key: Name
+        Value: Qlite-dev-namae-rtb-nat1c-cfn
+
+  rtbSubPub1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: mySubnetPub1a
+      RouteTableId:
+        Ref: myRtbPub
+
+  rtbSubPub1c:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: mySubnetPub1c
+      RouteTableId:
+        Ref: myRtbPub
+
+  rtbSubPri1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: mySubnetPri1a
+      RouteTableId:
+        Ref: myRtbPri1a
+
+  rtbSubPri1c:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: mySubnetPri1c
+      RouteTableId:
+        Ref: myRtbPri1c
+
+  rtbSubNat1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: mySubnetNat1a
+      RouteTableId:
+        Ref: myRtbNat1a
+
+  rtbSubNat1c:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: mySubnetNat1c
+      RouteTableId:
+        Ref: myRtbNat1c
+
+  routeIgw:
+    Type: AWS::EC2::Route
+    Properties:
+        RouteTableId:
+          Ref: myRtbPub
+        DestinationCidrBlock: 0.0.0.0/0
+        GatewayId:
+          Ref: myIgw
+
+# 以下は有料なので、作成したら、コンソール画面で削除してください。テンプレートの内容を削除しないでください。
+
+  # eip1a:
+  #   Type: AWS::EC2::EIP
+  #   Properties:
+  #       Domain: myVPC
+
+  # ngw1a:
+  #   Type: AWS::EC2::NatGateway
+  #   Properties:
+  #       AllocationId: !GetAtt eip1a.AllocationId
+  #       SubnetId: 
+  #         Ref: mySubnetPub1a
+  #       Tags:
+  #       - Key: Name
+  #         Value: Qlite-dev-namae-ngw-1a-cfn
+
+  # routeNgw1a:
+  #   Type: AWS::EC2::Route
+  #   Properties:
+  #       RouteTableId: 
+  #         Ref: myRtbNat1a
+  #       DestinationCidrBlock: '0.0.0.0/0'
+  #       NatGatewayId: 
+  #         Ref: ngw1a
+
+  # ngw1c:
+  #   Type: AWS::EC2::NatGateway
+  #   Properties:
+  #       AllocationId: !GetAtt eip1c.AllocationId
+  #       SubnetId: 
+  #         Ref: mySubnetPub1c
+  #       Tags:
+  #       - Key: Name
+  #         Value: Qlite-dev-namae-ngw-1c-cfn
+
+  # eip1c:
+  #   Type: AWS::EC2::EIP
+  #   Properties:
+  #       Domain: myVPC
+
+  # routeNgw1c:
+  #   Type: AWS::EC2::Route
+  #   Properties:
+  #       RouteTableId: 
+  #         Ref: myRtbNat1c
+  #       DestinationCidrBlock: '0.0.0.0/0'
+  #       NatGatewayId: 
+  #         Ref: ngw1c
+
+# Transform:
+  
+# Outputs:
+  
+  
