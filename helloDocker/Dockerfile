@@ -31,3 +31,21 @@ CMD node /index.js
 # PS D:\git_repository\Code_Study\helloDocker> docker login
 # Authenticating with existing credentials...
 # Login Succeeded
+
+# 然后我们上传本地的Image到Docker Hub上去
+# 首先我们给Image标记一个路径，因为如果直接docker push的话，不知道要推送到哪里去
+# docker tag hello-docker:dev cafe_latte/hello-docker:dev
+# 另外我们还需要提前在Docker Hub里面先建立好对应的repository才行，而且名字/repository这些都需要一一对应Docker tag里面的路径，否则失败
+# PS D:\git_repository\Code_Study\helloDocker> docker tag hello-docker:dev caferate/hello-docker:dev 
+# PS D:\git_repository\Code_Study\helloDocker> docker push caferate/hello-docker:dev
+# The push refers to repository [docker.io/caferate/hello-docker]
+# d1f534147743: Pushed
+# 38a733b6f4b5: Pushed
+# 8f665685b215: Pushed
+# e5fca6c395a6: Pushed
+# 561cb69653d5: Pushed
+# f56be85fc22e: Pushed
+# dev: digest: sha256:0f42e4904295f483c40b6b2927c32e9a0e8304b340069d62921b9692ce1c45cf size: 856
+
+# 因为我们刚才有一个错误的docker tag 命令，所以我们现在将他删除，就是使用下面的这个命令删除
+# PS D:\git_repository\Code_Study\helloDocker> docker rmi cafe_latte/hello-docker:dev
